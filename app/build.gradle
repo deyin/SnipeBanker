@@ -53,6 +53,9 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-annotations:$rootProject.jacksonVersion"
     implementation "com.fasterxml.jackson.core:jackson-databind:$rootProject.jacksonVersion"
 
+    // jsoup to parse html
+    implementation "org.jsoup:jsoup:$rootProject.jsoupVersion"
+
     // volley network
     implementation "com.android.volley:volley:$rootProject.volleyVersion"
 

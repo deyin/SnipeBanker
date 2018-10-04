@@ -1,0 +1,344 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "60d42c970f12092a8c0b54c56a8bac32",
+    "entities": [
+      {
+        "tableName": "t_match",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `matchNo` TEXT NOT NULL, `matchName` TEXT NOT NULL, `matchTime` TEXT NOT NULL, `finished` INTEGER NOT NULL, `finishedScore` TEXT, `handicaps` INTEGER NOT NULL, `homename` TEXT, `homeleague` TEXT, `homeranking` INTEGER NOT NULL, `awayname` TEXT, `awayleague` TEXT, `awayranking` INTEGER NOT NULL, `oddstime` TEXT, `oddsname` TEXT, `oddswin` REAL, `oddsdraw` REAL, `oddslose` REAL, `handicap_oddstime` TEXT, `handicap_oddsname` TEXT, `handicap_oddswin` REAL, `handicap_oddsdraw` REAL, `handicap_oddslose` REAL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchNo",
+            "columnName": "matchNo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchName",
+            "columnName": "matchName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchTime",
+            "columnName": "matchTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finished",
+            "columnName": "finished",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finishedScore",
+            "columnName": "finishedScore",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicaps",
+            "columnName": "handicaps",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "home.name",
+            "columnName": "homename",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "home.league",
+            "columnName": "homeleague",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "home.ranking",
+            "columnName": "homeranking",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "away.name",
+            "columnName": "awayname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "away.league",
+            "columnName": "awayleague",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "away.ranking",
+            "columnName": "awayranking",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "oddsOfSporttery.time",
+            "columnName": "oddstime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.name",
+            "columnName": "oddsname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.win",
+            "columnName": "oddswin",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.draw",
+            "columnName": "oddsdraw",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.lose",
+            "columnName": "oddslose",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.time",
+            "columnName": "handicap_oddstime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.name",
+            "columnName": "handicap_oddsname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.win",
+            "columnName": "handicap_oddswin",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.draw",
+            "columnName": "handicap_oddsdraw",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.lose",
+            "columnName": "handicap_oddslose",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_t_match_matchNo",
+            "unique": false,
+            "columnNames": [
+              "matchNo"
+            ],
+            "createSql": "CREATE  INDEX `index_t_match_matchNo` ON `${TABLE_NAME}` (`matchNo`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "t_odds",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `matchId` INTEGER NOT NULL, `providerId` TEXT, `providerName` TEXT, `latest` TEXT, `started` TEXT, `oddsChangeList` TEXT, FOREIGN KEY(`matchId`) REFERENCES `t_match`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchId",
+            "columnName": "matchId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "providerId",
+            "columnName": "providerId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "providerName",
+            "columnName": "providerName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latest",
+            "columnName": "latest",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "started",
+            "columnName": "started",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsChangeList",
+            "columnName": "oddsChangeList",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_t_odds_matchId",
+            "unique": true,
+            "columnNames": [
+              "matchId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_t_odds_matchId` ON `${TABLE_NAME}` (`matchId`)"
+          },
+          {
+            "name": "index_t_odds_providerId",
+            "unique": false,
+            "columnNames": [
+              "providerId"
+            ],
+            "createSql": "CREATE  INDEX `index_t_odds_providerId` ON `${TABLE_NAME}` (`providerId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "t_match",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "matchId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "t_handicap",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `matchId` INTEGER NOT NULL, `providerId` TEXT, `providerName` TEXT, `latest` TEXT, `started` TEXT, `handicapChangeList` TEXT, FOREIGN KEY(`matchId`) REFERENCES `t_match`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchId",
+            "columnName": "matchId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "providerId",
+            "columnName": "providerId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "providerName",
+            "columnName": "providerName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latest",
+            "columnName": "latest",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "started",
+            "columnName": "started",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapChangeList",
+            "columnName": "handicapChangeList",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_t_handicap_matchId",
+            "unique": true,
+            "columnNames": [
+              "matchId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_t_handicap_matchId` ON `${TABLE_NAME}` (`matchId`)"
+          },
+          {
+            "name": "index_t_handicap_providerId",
+            "unique": false,
+            "columnNames": [
+              "providerId"
+            ],
+            "createSql": "CREATE  INDEX `index_t_handicap_providerId` ON `${TABLE_NAME}` (`providerId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "t_match",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "matchId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"60d42c970f12092a8c0b54c56a8bac32\")"
+    ]
+  }
+}
