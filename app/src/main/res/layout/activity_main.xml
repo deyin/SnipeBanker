@@ -1,18 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9.3">
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_matches"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.01" />
+
+    <LinearLayout
+        android:id="@+id/layout_bottom_options"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.69"
+        android:background="#d7d4d4"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+
+            <CheckBox
+                android:id="@+id/cb_auto_select_by_odds"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginLeft="8dp"
+                android:checked="false"
+                android:text="@string/strAutoSelectByOdds"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+
+            <CheckBox
+                android:id="@+id/cb_auto_select_by_handicap"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginLeft="8dp"
+                android:checked="false"
+                android:text="@string/strAutoSelectByHandicap"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+
+            <CheckBox
+                android:id="@+id/cb_auto_select_by_profit_and_loss"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginLeft="8dp"
+                android:checked="false"
+                android:text="@string/strAutoSelectByProfitAndLoss"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+
+            <CheckBox
+                android:id="@+id/cb_auto_select_by_okooo_exponent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginLeft="8dp"
+                android:checked="false"
+                android:text="@string/strAutoSelectByOkoooExponent"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

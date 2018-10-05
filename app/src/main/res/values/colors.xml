@@ -3,4 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorTableDivider">#cccccc</color>
+    <color name="colorActualResult">#f45151</color>
+    <color name="colorOdds">#ffffff</color>
+    <color name="colorOfMatchParent">#dedcdc</color>
+    <color name="colorOfMatch">#efeded</color>
+    <color name="colorOfOddText">#282626</color>
 </resources>

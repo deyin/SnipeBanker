@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/heightOfMatch"
+    android:background="@color/colorOfMatch"
+    android:orientation="vertical"
+    android:padding="@dimen/paddingOfMatch"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:background="@drawable/border_match_infos"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tv_match_no"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="001"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_vs"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="A[1] VS B[2]"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:background="@drawable/border_match_infos"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+
+            <TextView
+                android:id="@+id/tv_league"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="赛事"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="时间"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_analyze"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:text="分析"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:divider="@drawable/divider_vertical"
+            android:showDividers="middle|beginning|end"
+            android:weightSum="1">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:divider="@drawable/divider_horizontal"
+                android:showDividers="beginning|middle|end">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:gravity="center"
+                    android:text="让"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:text="胜"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:text="平"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:text="负"
+                    android:textAlignment="center" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:divider="@drawable/divider_horizontal"
+                android:showDividers="beginning|middle|end">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/tv_odds_win"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@color/colorOdds"
+                    android:gravity="center"
+                    android:text="1.0"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorOfOddText" />
+
+                <TextView
+                    android:id="@+id/tv_odds_draw"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@color/colorOdds"
+                    android:gravity="center"
+                    android:text="2.0"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorOfOddText" />
+
+                <TextView
+                    android:id="@+id/tv_odds_lose"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@color/colorOdds"
+                    android:gravity="center"
+                    android:text="3.0"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorOfOddText" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:divider="@drawable/divider_horizontal"
+                android:showDividers="beginning|middle|end">
+
+                <TextView
+                    android:id="@+id/tv_handicaps"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:gravity="center"
+                    android:text="-1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/tv_handicaps_win"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@color/colorOdds"
+                    android:gravity="center"
+                    android:text="4.0"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorOfOddText" />
+
+                <TextView
+                    android:id="@+id/tv_handicaps_draw"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@color/colorOdds"
+                    android:gravity="center"
+                    android:text="5.0"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorOfOddText" />
+
+                <TextView
+                    android:id="@+id/tv_handicaps_lose"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@color/colorOdds"
+                    android:gravity="center"
+                    android:text="6.0"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorOfOddText" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

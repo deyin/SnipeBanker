@@ -8,7 +8,9 @@ import android.support.annotation.NonNull;
 import java.util.Date;
 import java.util.List;
 
+import io.dylan.snipebanker.models.Handicap;
 import io.dylan.snipebanker.models.Match;
+import io.dylan.snipebanker.models.Odds;
 
 public class AppViewModel extends AndroidViewModel {
 
@@ -28,14 +30,14 @@ public class AppViewModel extends AndroidViewModel {
         return matchesByDate;
     }
 
-//    public LiveData<List<Odds>> getAllOdds(String matchId) {
-//        LiveData<List<Odds>> allOdds = mAppRepository.getAllOdds(matchId);
-//        return allOdds;
-//    }
-//
-//    public LiveData<List<Handicap>> getAllHandicaps(String matchId) {
-//        LiveData<List<Handicap>> allHandicaps = mAppRepository.getAllHandicaps(matchId);
-//        return allHandicaps;
-//    }
+    public LiveData<List<Odds>> getAllOdds(String matchId) {
+        LiveData<List<Odds>> allOdds = mAppRepository.getAllOdds(matchId);
+        return allOdds;
+    }
+
+    public LiveData<List<Handicap>> getAllHandicaps(String matchId) {
+        LiveData<List<Handicap>> allHandicaps = mAppRepository.getAllHandicaps(matchId);
+        return allHandicaps;
+    }
 
 }

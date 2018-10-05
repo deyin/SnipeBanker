@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">狙杀庄狗</string>
+    <string name="strAutoSelectByOdds">赔率</string>
+    <string name="strAutoSelectByHandicap">盘口</string>
+    <string name="strAutoSelectByProfitAndLoss">盈亏</string>
+    <string name="strVs">"[%1$d] %2$s VS %3$s [%4$d]"</string>
+    <string name="strVsFinishedScore">"[%1$d] %2$s %3$s %4$s [%5$d]"</string>
+    <string name="strAutoSelectByOkoooExponent">澳指</string>
 </resources>

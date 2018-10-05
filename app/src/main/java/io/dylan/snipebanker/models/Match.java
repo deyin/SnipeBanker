@@ -11,6 +11,7 @@ import java.util.Date;
 
 import io.dylan.snipebanker.persist.converters.DateConverter;
 import io.dylan.snipebanker.persist.converters.JsonObjectConverter;
+import io.dylan.snipebanker.persist.converters.ResultConvert;
 
 @Entity(tableName = "t_match", indices = {@Index(value = "matchNo")})
 public class Match {
@@ -24,6 +25,10 @@ public class Match {
 
     @NonNull
     private String matchName;
+
+    @NonNull
+    @TypeConverters({DateConverter.class})
+    private Date matchDate;
 
     @NonNull
     @TypeConverters({DateConverter.class})
@@ -77,6 +82,15 @@ public class Match {
 
     public void setMatchName(@NonNull String matchName) {
         this.matchName = matchName;
+    }
+
+    @NonNull
+    public Date getMatchDate() {
+        return matchDate;
+    }
+
+    public void setMatchDate(@NonNull Date matchDate) {
+        this.matchDate = matchDate;
     }
 
     @NonNull
@@ -147,15 +161,17 @@ public class Match {
     }
 
     public static class Team {
+        @NonNull
         private String name;
         private String league;
         private int ranking;
 
+        @NonNull
         public String getName() {
             return name;
         }
 
-        public void setName(String name) {
+        public void setName(@NonNull String name) {
             this.name = name;
         }
 

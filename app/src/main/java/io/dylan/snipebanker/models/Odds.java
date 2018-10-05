@@ -1,5 +1,6 @@
 package io.dylan.snipebanker.models;
 
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
@@ -15,6 +16,7 @@ import java.util.List;
 import io.dylan.snipebanker.persist.converters.DateConverter;
 import io.dylan.snipebanker.persist.converters.JsonObjectContainerConverter;
 import io.dylan.snipebanker.persist.converters.JsonObjectConverter;
+import io.dylan.snipebanker.persist.converters.ResultConvert;
 
 
 @Entity(tableName = "t_odds"
@@ -113,13 +115,17 @@ public class Odds implements Parent<Odds.OddsChange> {
         @TypeConverters({DateConverter.class})
         private Date time;
 
-        private String name;
-
         private double win;
 
         private double draw;
 
         private double lose;
+
+        @TypeConverters({ResultConvert.class})
+        private Result expectedResult = Result.UNKNOWN; // default
+
+        @TypeConverters({ResultConvert.class})
+        private Result actualResult = Result.UNKNOWN; // default
 
         public Date getTime() {
             return time;
@@ -127,14 +133,6 @@ public class Odds implements Parent<Odds.OddsChange> {
 
         public void setTime(Date time) {
             this.time = time;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         public double getWin() {
@@ -159,6 +157,32 @@ public class Odds implements Parent<Odds.OddsChange> {
 
         public void setLose(double lose) {
             this.lose = lose;
+        }
+
+        public Result getExpectedResult() {
+            return expectedResult;
+        }
+
+        public void setExpectedResult(Result expectedResult) {
+            this.expectedResult = expectedResult;
+        }
+
+        public Result getActualResult() {
+            return actualResult;
+        }
+
+        public void setActualResult(Result actualResult) {
+            this.actualResult = actualResult;
+        }
+
+        @Override
+        public String toString() {
+            return "OddsChange{" +
+                    "time=" + time +
+                    ", win=" + win +
+                    ", draw=" + draw +
+                    ", lose=" + lose +
+                    '}';
         }
     }
 }

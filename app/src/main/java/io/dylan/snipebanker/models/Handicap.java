@@ -151,5 +151,15 @@ public class Handicap implements Parent<Handicap.HandicapChange> {
         public void setWaterOfAway(double waterOfAway) {
             this.waterOfAway = waterOfAway;
         }
+
+        @Override
+        public String toString() {
+            return "HandicapChange{" +
+                    "time=" + time +
+                    ", name='" + name + '\'' +
+                    ", waterOfHome=" + waterOfHome +
+                    ", waterOfAway=" + waterOfAway +
+                    '}';
+        }
     }
 }

@@ -11,14 +11,29 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/C:/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_drop_down_black_24dp.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="108" />
-                            <entry key="outputName" value="ic_circular_target" />
+                            <entry key="color" value="cccccc" />
+                            <entry key="height" value="48" />
+                            <entry key="outputName" value="ic_arrow_drop_down" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\chend15\Downloads\circular-target.svg" />
-                            <entry key="width" value="108" />
+                            <entry key="width" value="48" />
                           </map>
                         </option>
                       </PersistentState>
