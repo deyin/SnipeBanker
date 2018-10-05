@@ -77,7 +77,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.4"
                 android:gravity="center"
-                android:text="分析"
+                android:text="@string/analyze"
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -102,7 +102,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.1"
                     android:gravity="center"
-                    android:text="让"
+                    android:text="@string/concede"
                     android:textAlignment="center" />
 
                 <TextView
@@ -110,7 +110,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="胜"
+                    android:text="@string/win"
                     android:textAlignment="center" />
 
                 <TextView
@@ -118,7 +118,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="平"
+                    android:text="@string/draw"
                     android:textAlignment="center" />
 
                 <TextView
@@ -126,7 +126,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="负"
+                    android:text="@string/lose"
                     android:textAlignment="center" />
 
             </TableRow>
