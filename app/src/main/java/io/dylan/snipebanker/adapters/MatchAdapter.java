@@ -8,6 +8,7 @@ import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
@@ -70,8 +71,8 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
     private void expandToLatestMatch(@NonNull List<MatchParent> matchParentList) {
         Date now = DateConverter.dateFromYmdString(DateConverter.dateToYmdString(new Date()));
         int pos = 0;
-        for(MatchParent matchParent : matchParentList) {
-            if(matchParent.getDate().compareTo(now) >= 0) {
+        for (MatchParent matchParent : matchParentList) {
+            if (matchParent.getDate().compareTo(now) >= 0) {
                 break;
             }
             pos++;
@@ -83,6 +84,10 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
 
         TextView displayTitle;
 
+        ImageView arrow;
+
+        boolean isExpanded = false;
+
         /**
          * Default constructor.
          *
@@ -91,9 +96,23 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
         public MatchParentViewHolder(@NonNull View itemView) {
             super(itemView);
             displayTitle = itemView.findViewById(R.id.tv_display_title);
+            arrow = itemView.findViewById(R.id.iv_arrow);
         }
 
-        public void onBind(int parentPosition, MatchParent parent) {
+        public void onBind(final int parentPosition, MatchParent parent) {
+            arrow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    arrow.setRotation(!isExpanded ? 180 : 0);
+                    if (!isExpanded) {
+                        expandParent(parentPosition);
+                        isExpanded = true;
+                    } else {
+                        collapseParent(parentPosition);
+                        isExpanded = false;
+                    }
+                }
+            });
             displayTitle.setText(parent.getDisplayTitle());
         }
     }
@@ -223,8 +242,8 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
             Result actualResult = oddsOfSporttery.getActualResult();
             Integer resId = resultViewMap.get(actualResult);
             List<TextView> oddsViewList = getOddsViewList();
-            for(TextView textView : oddsViewList) {
-                if(resId!= null && resId.equals(textView.getId())) {
+            for (TextView textView : oddsViewList) {
+                if (resId != null && resId.equals(textView.getId())) {
                     textView.setBackgroundResource(R.color.colorActualResult);
                     continue;
                 }
@@ -236,8 +255,8 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
             Result actualResult = handicapOddsOfSporttery.getActualResult();
             Integer resId = resultViewMap.get(actualResult);
             List<TextView> oddsViewList = getHandicapOddsViewList();
-            for(TextView textView : oddsViewList) {
-                if(resId!= null && resId.equals(textView.getId())) {
+            for (TextView textView : oddsViewList) {
+                if (resId != null && resId.equals(textView.getId())) {
                     textView.setBackgroundResource(R.color.colorActualResult);
                     continue;
                 }
