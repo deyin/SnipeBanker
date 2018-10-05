@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.dylan.snipebanker.persist.converters.DateConverter;
@@ -14,7 +15,7 @@ import io.dylan.snipebanker.persist.converters.JsonObjectConverter;
 import io.dylan.snipebanker.persist.converters.ResultConvert;
 
 @Entity(tableName = "t_match", indices = {@Index(value = "matchNo")})
-public class Match {
+public class Match implements Serializable {
 
     @NonNull
     @PrimaryKey
@@ -160,7 +161,7 @@ public class Match {
         this.handicapOddsOfSporttery = handicapOddsOfSporttery;
     }
 
-    public static class Team {
+    public static class Team implements Serializable {
         @NonNull
         private String name;
         private String league;

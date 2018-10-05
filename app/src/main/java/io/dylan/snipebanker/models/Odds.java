@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 
 import com.bignerdranch.expandablerecyclerview.model.Parent;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -110,7 +111,7 @@ public class Odds implements Parent<Odds.OddsChange> {
         return false;
     }
 
-    public static class OddsChange {
+    public static class OddsChange implements Serializable {
 
         @TypeConverters({DateConverter.class})
         private Date time;

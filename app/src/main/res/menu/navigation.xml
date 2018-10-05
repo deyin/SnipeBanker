@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_odds"
+        android:icon="@drawable/ic_nav_odds"
+        android:title="@string/odds" />
+
+    <item
+        android:id="@+id/nav_handicap"
+        android:icon="@drawable/ic_nav_handicap"
+        android:title="@string/handicap" />
+
+    <item
+        android:id="@+id/nav_profit_and_loss"
+        android:icon="@drawable/ic_nav_profit_and_loss"
+        android:title="@string/profitAndLoss" />
+
+    <item
+        android:id="@+id/nav_exponent"
+        android:icon="@drawable/ic_nav_exponent"
+        android:title="@string/exponent" />
+
+</menu>

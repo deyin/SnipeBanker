@@ -2,6 +2,7 @@ package io.dylan.snipebanker;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,13 +20,14 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import io.dylan.snipebanker.adapters.MatchAdapter;
+import io.dylan.snipebanker.callbacks.AnalyzeCallBack;
 import io.dylan.snipebanker.models.Match;
 import io.dylan.snipebanker.models.MatchParent;
 import io.dylan.snipebanker.persist.AppViewModel;
 import io.dylan.snipebanker.tasks.DownloadMatchTask;
 import io.dylan.snipebanker.utils.DateUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
 
     /// UI
     SwipeRefreshLayout swipeRefreshLayout;
@@ -132,5 +134,13 @@ public class MainActivity extends AppCompatActivity {
             map.put(matchDate, matches);
         }
         return map;
+    }
+
+    @Override
+    public void analyze(Match match) {
+        Intent intent = new Intent();
+        intent.setClass(this, AnalyzeActivity.class);
+        intent.putExtra("match", match);
+        startActivity(intent);
     }
 }

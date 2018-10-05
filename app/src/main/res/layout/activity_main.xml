@@ -47,7 +47,7 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginLeft="8dp"
                 android:checked="false"
-                android:text="@string/strAutoSelectByOdds"
+                android:text="@string/odds"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -63,7 +63,7 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginLeft="8dp"
                 android:checked="false"
-                android:text="@string/strAutoSelectByHandicap"
+                android:text="@string/handicap"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -79,7 +79,7 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginLeft="8dp"
                 android:checked="false"
-                android:text="@string/strAutoSelectByProfitAndLoss"
+                android:text="@string/profitAndLoss"
                 android:textAlignment="center" />
         </LinearLayout>
 
@@ -95,7 +95,7 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginLeft="8dp"
                 android:checked="false"
-                android:text="@string/strAutoSelectByOkoooExponent"
+                android:text="@string/exponent"
                 android:textAlignment="center" />
         </LinearLayout>
     </LinearLayout>

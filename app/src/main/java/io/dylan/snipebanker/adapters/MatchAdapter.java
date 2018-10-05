@@ -2,7 +2,6 @@ package io.dylan.snipebanker.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.RawRes;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -22,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.dylan.snipebanker.R;
+import io.dylan.snipebanker.callbacks.AnalyzeCallBack;
 import io.dylan.snipebanker.models.Match;
 import io.dylan.snipebanker.models.MatchParent;
 import io.dylan.snipebanker.models.Odds;
@@ -122,9 +122,10 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
         TextView matchNo;
         TextView league;
         TextView time;
+        TextView analyze;
+
 
         TextView vs;
-
 
         TextView oddsWin;
         TextView oddsDraw;
@@ -149,8 +150,9 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
 
             matchNo = itemView.findViewById(R.id.tv_match_no);
             vs = itemView.findViewById(R.id.tv_vs);
-            time = itemView.findViewById(R.id.tv_time);
             league = itemView.findViewById(R.id.tv_league);
+            time = itemView.findViewById(R.id.tv_time);
+            analyze = itemView.findViewById(R.id.tv_analyze);
 
             oddsWin = itemView.findViewById(R.id.tv_odds_win);
             oddsDraw = itemView.findViewById(R.id.tv_odds_draw);
@@ -176,19 +178,27 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
         }
 
 
-        public void onBind(int parentPosition, int childPosition, Match child) {
-            matchNo.setText(child.getMatchNo());
-            league.setText(child.getMatchName());
-            time.setText(DateConverter.dateToHmString(child.getMatchTime()));
+        public void onBind(int parentPosition, int childPosition, final Match match) {
+            matchNo.setText(match.getMatchNo());
+            league.setText(match.getMatchName());
+            time.setText(DateConverter.dateToHmString(match.getMatchTime()));
+            analyze.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(context instanceof AnalyzeCallBack) {
+                        ((AnalyzeCallBack)context).analyze(match);
+                    }
+                }
+            });
 
-            Match.Team home = child.getHome();
-            Match.Team away = child.getAway();
+            Match.Team home = match.getHome();
+            Match.Team away = match.getAway();
 
-            if (child.isFinished() && child.getFinishedScore() != null) {
+            if (match.isFinished() && match.getFinishedScore() != null) {
                 vs.setText(showHtml(context.getResources().getString(R.string.strVsFinishedScore,
                         home.getRanking(),
                         home.getName(),
-                        "<font color=\"#D81B60\">" + child.getFinishedScore() + "</font>",
+                        "<font color=\"#D81B60\">" + match.getFinishedScore() + "</font>",
                         away.getName(),
                         away.getRanking())));
             } else {
@@ -200,9 +210,9 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
                 ));
             }
 
-            handicaps.setText(String.valueOf(child.getHandicaps() > 0 ? "+" + child.getHandicaps() : child.getHandicaps()));
+            handicaps.setText(String.valueOf(match.getHandicaps() > 0 ? "+" + match.getHandicaps() : match.getHandicaps()));
 
-            onBindOdds(child);
+            onBindOdds(match);
 
         }
 
