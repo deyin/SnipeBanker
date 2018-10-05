@@ -86,8 +86,6 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
 
         ImageView arrow;
 
-        boolean isExpanded = false;
-
         /**
          * Default constructor.
          *
@@ -103,13 +101,11 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
             arrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    arrow.setRotation(!isExpanded ? 180 : 0);
-                    if (!isExpanded) {
+                    arrow.setRotation(!isExpanded() ? 180 : 0);
+                    if (!isExpanded()) {
                         expandParent(parentPosition);
-                        isExpanded = true;
                     } else {
                         collapseParent(parentPosition);
-                        isExpanded = false;
                     }
                 }
             });
