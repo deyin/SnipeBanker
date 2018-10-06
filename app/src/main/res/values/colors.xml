@@ -7,6 +7,7 @@
     <color name="colorActualResult">#f45151</color>
     <color name="colorOdds">#ffffff</color>
     <color name="colorOfMatchParent">#dedcdc</color>
+    <color name="colorOfOddsParent">#efeded</color>
     <color name="colorOfMatch">#efeded</color>
     <color name="colorOfOddText">#282626</color>
 </resources>

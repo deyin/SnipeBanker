@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c007861451637b3a817d8cf7763d4100",
+    "identityHash": "a411cb201fa4592cda2f83d7ecbc6d4d",
     "entities": [
       {
         "tableName": "t_match",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `matchNo` TEXT NOT NULL, `matchDate` TEXT NOT NULL, `matchTime` TEXT NOT NULL, `status` INTEGER, `finishedScore` TEXT, `handicaps` INTEGER NOT NULL, `leagueid` INTEGER NOT NULL, `leaguename` TEXT NOT NULL, `homename` TEXT NOT NULL, `homeleague` TEXT, `homeranking` INTEGER NOT NULL, `awayname` TEXT, `awayleague` TEXT, `awayranking` INTEGER, `oddstime` TEXT, `oddswin` REAL, `oddsdraw` REAL, `oddslose` REAL, `oddsexpectedResult` TEXT, `oddsactualResult` TEXT, `handicap_oddstime` TEXT, `handicap_oddswin` REAL, `handicap_oddsdraw` REAL, `handicap_oddslose` REAL, `handicap_oddsexpectedResult` TEXT, `handicap_oddsactualResult` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `matchNo` TEXT NOT NULL, `matchDate` TEXT NOT NULL, `matchTime` TEXT NOT NULL, `status` INTEGER, `finishedScore` TEXT, `handicaps` INTEGER NOT NULL, `leagueid` INTEGER NOT NULL, `leaguename` TEXT NOT NULL, `homename` TEXT NOT NULL, `homeleague` TEXT, `homeranking` INTEGER NOT NULL, `awayname` TEXT, `awayleague` TEXT, `awayranking` INTEGER, `oddsproviderId` TEXT, `oddstime` TEXT, `oddshoursBeforeMatch` TEXT, `oddsoddsOfWin` REAL, `oddsoddsOfDraw` REAL, `oddsoddsOfLose` REAL, `oddsprobabilityOfWin` REAL, `oddsprobabilityOfDraw` REAL, `oddsprobabilityOfLose` REAL, `oddskellyOfWin` REAL, `oddskellyOfDraw` REAL, `oddskellyOfLose` REAL, `oddslossRatio` REAL, `oddsexpectedResult` TEXT, `oddsactualResult` TEXT, `handicap_oddsproviderId` TEXT, `handicap_oddstime` TEXT, `handicap_oddshoursBeforeMatch` TEXT, `handicap_oddsoddsOfWin` REAL, `handicap_oddsoddsOfDraw` REAL, `handicap_oddsoddsOfLose` REAL, `handicap_oddsprobabilityOfWin` REAL, `handicap_oddsprobabilityOfDraw` REAL, `handicap_oddsprobabilityOfLose` REAL, `handicap_oddskellyOfWin` REAL, `handicap_oddskellyOfDraw` REAL, `handicap_oddskellyOfLose` REAL, `handicap_oddslossRatio` REAL, `handicap_oddsexpectedResult` TEXT, `handicap_oddsactualResult` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -99,26 +99,80 @@
             "notNull": false
           },
           {
+            "fieldPath": "oddsOfSporttery.providerId",
+            "columnName": "oddsproviderId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "oddsOfSporttery.time",
             "columnName": "oddstime",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "oddsOfSporttery.win",
-            "columnName": "oddswin",
+            "fieldPath": "oddsOfSporttery.hoursBeforeMatch",
+            "columnName": "oddshoursBeforeMatch",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.oddsOfWin",
+            "columnName": "oddsoddsOfWin",
             "affinity": "REAL",
             "notNull": false
           },
           {
-            "fieldPath": "oddsOfSporttery.draw",
-            "columnName": "oddsdraw",
+            "fieldPath": "oddsOfSporttery.oddsOfDraw",
+            "columnName": "oddsoddsOfDraw",
             "affinity": "REAL",
             "notNull": false
           },
           {
-            "fieldPath": "oddsOfSporttery.lose",
-            "columnName": "oddslose",
+            "fieldPath": "oddsOfSporttery.oddsOfLose",
+            "columnName": "oddsoddsOfLose",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.probabilityOfWin",
+            "columnName": "oddsprobabilityOfWin",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.probabilityOfDraw",
+            "columnName": "oddsprobabilityOfDraw",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.probabilityOfLose",
+            "columnName": "oddsprobabilityOfLose",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.kellyOfWin",
+            "columnName": "oddskellyOfWin",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.kellyOfDraw",
+            "columnName": "oddskellyOfDraw",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.kellyOfLose",
+            "columnName": "oddskellyOfLose",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "oddsOfSporttery.lossRatio",
+            "columnName": "oddslossRatio",
             "affinity": "REAL",
             "notNull": false
           },
@@ -135,26 +189,80 @@
             "notNull": false
           },
           {
+            "fieldPath": "handicapOddsOfSporttery.providerId",
+            "columnName": "handicap_oddsproviderId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "handicapOddsOfSporttery.time",
             "columnName": "handicap_oddstime",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "handicapOddsOfSporttery.win",
-            "columnName": "handicap_oddswin",
+            "fieldPath": "handicapOddsOfSporttery.hoursBeforeMatch",
+            "columnName": "handicap_oddshoursBeforeMatch",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.oddsOfWin",
+            "columnName": "handicap_oddsoddsOfWin",
             "affinity": "REAL",
             "notNull": false
           },
           {
-            "fieldPath": "handicapOddsOfSporttery.draw",
-            "columnName": "handicap_oddsdraw",
+            "fieldPath": "handicapOddsOfSporttery.oddsOfDraw",
+            "columnName": "handicap_oddsoddsOfDraw",
             "affinity": "REAL",
             "notNull": false
           },
           {
-            "fieldPath": "handicapOddsOfSporttery.lose",
-            "columnName": "handicap_oddslose",
+            "fieldPath": "handicapOddsOfSporttery.oddsOfLose",
+            "columnName": "handicap_oddsoddsOfLose",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.probabilityOfWin",
+            "columnName": "handicap_oddsprobabilityOfWin",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.probabilityOfDraw",
+            "columnName": "handicap_oddsprobabilityOfDraw",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.probabilityOfLose",
+            "columnName": "handicap_oddsprobabilityOfLose",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.kellyOfWin",
+            "columnName": "handicap_oddskellyOfWin",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.kellyOfDraw",
+            "columnName": "handicap_oddskellyOfDraw",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.kellyOfLose",
+            "columnName": "handicap_oddskellyOfLose",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handicapOddsOfSporttery.lossRatio",
+            "columnName": "handicap_oddslossRatio",
             "affinity": "REAL",
             "notNull": false
           },
@@ -191,7 +299,7 @@
       },
       {
         "tableName": "t_odds",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `matchId` INTEGER NOT NULL, `providerId` TEXT, `providerName` TEXT, `latest` TEXT, `started` TEXT, `oddsChangeList` TEXT, FOREIGN KEY(`matchId`) REFERENCES `t_match`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `matchId` TEXT, `providerId` TEXT, `providerName` TEXT, `oddsChangeList` TEXT, FOREIGN KEY(`matchId`) REFERENCES `t_match`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -202,8 +310,8 @@
           {
             "fieldPath": "matchId",
             "columnName": "matchId",
-            "affinity": "INTEGER",
-            "notNull": true
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "providerId",
@@ -214,18 +322,6 @@
           {
             "fieldPath": "providerName",
             "columnName": "providerName",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "latest",
-            "columnName": "latest",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "started",
-            "columnName": "started",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -245,11 +341,11 @@
         "indices": [
           {
             "name": "index_t_odds_matchId",
-            "unique": true,
+            "unique": false,
             "columnNames": [
               "matchId"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_t_odds_matchId` ON `${TABLE_NAME}` (`matchId`)"
+            "createSql": "CREATE  INDEX `index_t_odds_matchId` ON `${TABLE_NAME}` (`matchId`)"
           },
           {
             "name": "index_t_odds_providerId",
@@ -362,7 +458,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c007861451637b3a817d8cf7763d4100\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a411cb201fa4592cda2f83d7ecbc6d4d\")"
     ]
   }
 }

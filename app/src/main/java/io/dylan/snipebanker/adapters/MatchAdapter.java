@@ -2,8 +2,6 @@ package io.dylan.snipebanker.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +26,7 @@ import io.dylan.snipebanker.models.Odds;
 import io.dylan.snipebanker.models.Result;
 import io.dylan.snipebanker.models.Status;
 import io.dylan.snipebanker.persist.converters.DateConverter;
+import io.dylan.snipebanker.utils.HtmlUtils;
 
 public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
         MatchAdapter.MatchParentViewHolder, MatchAdapter.MatchChildViewHolder> {
@@ -64,8 +63,8 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
     }
 
     public void parentListChanged(@NonNull List<MatchParent> matchParentList) {
-        if(matchParentList.isEmpty()) {
-           return;
+        if (matchParentList.isEmpty()) {
+            return;
         }
         setParentList(matchParentList, true);
         notifyParentDataSetChanged(true);
@@ -81,7 +80,7 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
             }
             pos++;
         }
-        if(pos >= matchParentList.size()) {
+        if (pos >= matchParentList.size()) {
             pos--;
         }
         expandParent(pos);
@@ -93,15 +92,15 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
 
         ImageView arrow;
 
-        /**
-         * Default constructor.
-         *
-         * @param itemView The {@link View} being hosted in this ViewHolder
-         */
+
         public MatchParentViewHolder(@NonNull View itemView) {
             super(itemView);
+            initViews(itemView);
+        }
+
+        private void initViews(@NonNull View itemView) {
             displayTitle = itemView.findViewById(R.id.tv_display_title);
-            arrow = itemView.findViewById(R.id.iv_arrow);
+            arrow = itemView.findViewById(R.id.iv_arrow_match);
         }
 
         public void onBind(final int parentPosition, MatchParent parent) {
@@ -141,15 +140,17 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
 
         Map<Result, Integer> resultViewMap = new HashMap<>();
 
-        /**
-         * Default constructor.
-         *
-         * @param itemView The {@link View} being hosted in this ViewHolder
-         */
+
         public MatchChildViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
+            initViews(itemView);
+
+            initResultViewMap();
+        }
+
+        private void initViews(@NonNull View itemView) {
             matchNo = itemView.findViewById(R.id.tv_match_no);
             vs = itemView.findViewById(R.id.tv_vs);
             league = itemView.findViewById(R.id.tv_league);
@@ -165,8 +166,6 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
             handicapsWin = itemView.findViewById(R.id.tv_handicaps_win);
             handicapsDraw = itemView.findViewById(R.id.tv_handicaps_draw);
             handicapsLose = itemView.findViewById(R.id.tv_handicaps_lose);
-
-            initResultViewMap();
         }
 
         private void initResultViewMap() {
@@ -187,8 +186,8 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
             analyze.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(context instanceof AnalyzeCallBack) {
-                        ((AnalyzeCallBack)context).analyze(match);
+                    if (context instanceof AnalyzeCallBack) {
+                        ((AnalyzeCallBack) context).analyze(match);
                     }
                 }
             });
@@ -197,7 +196,7 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
             Match.Team away = match.getAway();
 
             if (match.getStatus() == Status.FINISHED & match.getFinishedScore() != null) {
-                vs.setText(showHtml(context.getResources().getString(R.string.strVsFinishedScore,
+                vs.setText(HtmlUtils.showHtml(context.getResources().getString(R.string.strVsFinishedScore,
                         home.getRanking(),
                         home.getName(),
                         "<font color=\"#D81B60\">" + match.getFinishedScore() + "</font>",
@@ -218,23 +217,12 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
 
         }
 
-        @SuppressWarnings("deprecation")
-        public Spanned showHtml(String html) {
-            Spanned result;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                result = Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT);
-            } else {
-                result = Html.fromHtml(html);
-            }
-            return result;
-        }
-
         private void onBindOdds(Match match) {
             Odds.OddsChange oddsOfSporttery = match.getOddsOfSporttery();
             if (oddsOfSporttery != null) {
-                this.oddsWin.setText(String.valueOf(oddsOfSporttery.getWin()));
-                this.oddsDraw.setText(String.valueOf(oddsOfSporttery.getDraw()));
-                this.oddsLose.setText(String.valueOf(oddsOfSporttery.getLose()));
+                this.oddsWin.setText(String.valueOf(oddsOfSporttery.getOddsOfWin()));
+                this.oddsDraw.setText(String.valueOf(oddsOfSporttery.getOddsOfDraw()));
+                this.oddsLose.setText(String.valueOf(oddsOfSporttery.getOddsOfLose()));
             }
 
             enableOddsViews(!match.hasFinished());
@@ -242,9 +230,9 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
 
             Odds.OddsChange handicapOddsOfSporttery = match.getHandicapOddsOfSporttery();
             if (handicapOddsOfSporttery != null) {
-                this.handicapsWin.setText(String.valueOf(handicapOddsOfSporttery.getWin()));
-                this.handicapsDraw.setText(String.valueOf(handicapOddsOfSporttery.getDraw()));
-                this.handicapsLose.setText(String.valueOf(handicapOddsOfSporttery.getLose()));
+                this.handicapsWin.setText(String.valueOf(handicapOddsOfSporttery.getOddsOfWin()));
+                this.handicapsDraw.setText(String.valueOf(handicapOddsOfSporttery.getOddsOfDraw()));
+                this.handicapsLose.setText(String.valueOf(handicapOddsOfSporttery.getOddsOfLose()));
             }
             enableHandicapOddsViews(!match.hasFinished());
             setActualResultOfHandicapOddsView(handicapOddsOfSporttery);

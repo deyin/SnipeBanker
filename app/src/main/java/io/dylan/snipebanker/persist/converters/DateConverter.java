@@ -20,6 +20,15 @@ public class DateConverter {
         return new Date(); // avoid NullPointerException
     }
 
+    public static Date dateFromslashYmdHmString(@NonNull String value) {
+        try {
+            return new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(value);
+        } catch (Exception e) {
+            Log.e(DateConverter.class.getName(), "dateFromYmdHmsString: ", e);
+        }
+        return new Date(); // avoid NullPointerException
+    }
+
 
     @TypeConverter
     public static String dateToYmdHmsString(@NonNull Date date) {

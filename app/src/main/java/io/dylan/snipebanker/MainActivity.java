@@ -3,11 +3,10 @@ package io.dylan.snipebanker;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,7 +23,7 @@ import io.dylan.snipebanker.adapters.MatchAdapter;
 import io.dylan.snipebanker.callbacks.AnalyzeCallBack;
 import io.dylan.snipebanker.models.Match;
 import io.dylan.snipebanker.models.MatchParent;
-import io.dylan.snipebanker.persist.AppViewModel;
+import io.dylan.snipebanker.persist.MatchViewModel;
 import io.dylan.snipebanker.tasks.DownloadMatchTask;
 import io.dylan.snipebanker.utils.DateUtils;
 
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
     RecyclerView recyclerView;
     MatchAdapter matchAdapter;
 
-    private AppViewModel appViewModel;
+    private MatchViewModel appViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
 
         setupUi();
 
-        appViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+        appViewModel = ViewModelProviders.of(this).get(MatchViewModel.class);
     }
 
     @Override
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
     }
 
     private void initSwipeRefresh() {
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_matches);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
 
         appViewModel.getMatchesByDate(start, end).observe(this, new Observer<List<Match>>() {
             @Override
-            public void onChanged(@Nullable List<Match> matches) {
+            public void onChanged(List<Match> matches) {
                 List<MatchParent> matchParentList = generateMatchParents(matches);
                 matchAdapter.parentListChanged(matchParentList);
             }

@@ -12,11 +12,11 @@ import io.dylan.snipebanker.models.Handicap;
 import io.dylan.snipebanker.models.Match;
 import io.dylan.snipebanker.models.Odds;
 
-public class AppViewModel extends AndroidViewModel {
+public class MatchViewModel extends AndroidViewModel {
 
     private AppRepository mAppRepository;
 
-    public AppViewModel(@NonNull Application application) {
+    public MatchViewModel(@NonNull Application application) {
         super(application);
         mAppRepository = new AppRepository(application);
     }
@@ -29,15 +29,4 @@ public class AppViewModel extends AndroidViewModel {
         LiveData<List<Match>> matchesByDate = mAppRepository.getMatchesByDate(start, end);
         return matchesByDate;
     }
-
-    public LiveData<List<Odds>> getAllOdds(String matchId) {
-        LiveData<List<Odds>> allOdds = mAppRepository.getAllOdds(matchId);
-        return allOdds;
-    }
-
-    public LiveData<List<Handicap>> getAllHandicaps(String matchId) {
-        LiveData<List<Handicap>> allHandicaps = mAppRepository.getAllHandicaps(matchId);
-        return allHandicaps;
-    }
-
 }

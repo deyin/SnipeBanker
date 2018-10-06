@@ -110,7 +110,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="@string/win"
+                    android:text="@string/oddsOfWin"
                     android:textAlignment="center" />
 
                 <TextView
@@ -118,7 +118,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="@string/draw"
+                    android:text="@string/oddsOfDraw"
                     android:textAlignment="center" />
 
                 <TextView
@@ -126,7 +126,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:gravity="center"
-                    android:text="@string/lose"
+                    android:text="@string/oddsOfLose"
                     android:textAlignment="center" />
 
             </TableRow>

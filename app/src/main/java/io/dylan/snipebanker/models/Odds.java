@@ -10,18 +10,18 @@ import android.support.annotation.NonNull;
 import com.bignerdranch.expandablerecyclerview.model.Parent;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import io.dylan.snipebanker.persist.converters.DateConverter;
 import io.dylan.snipebanker.persist.converters.JsonObjectContainerConverter;
-import io.dylan.snipebanker.persist.converters.JsonObjectConverter;
 import io.dylan.snipebanker.persist.converters.ResultConverter;
 
 
 @Entity(tableName = "t_odds"
         , foreignKeys = {@ForeignKey(entity = Match.class, parentColumns = "id", childColumns = "matchId")}
-        , indices = {@Index(value = "matchId", unique = true), @Index(value = "providerId")}
+        , indices = {@Index(value = "matchId"), @Index(value = "providerId")}
 )
 public class Odds implements Parent<Odds.OddsChange> {
 
@@ -29,19 +29,25 @@ public class Odds implements Parent<Odds.OddsChange> {
     @NonNull
     private int id;
 
-    private int matchId;
+    private String matchId;
 
     private String providerId;
     private String providerName;
 
-    @TypeConverters({JsonObjectConverter.class})
-    private OddsChange latest;
-
-    @TypeConverters({JsonObjectConverter.class})
-    private OddsChange started;
-
     @TypeConverters({JsonObjectContainerConverter.class})
-    private List<OddsChange> oddsChangeList;
+    private List<OddsChange> oddsChangeList = new ArrayList<>();
+
+    public Odds() {
+
+    }
+
+    public Odds(@NonNull Odds copy) { // without oddsChangeList copy
+        this.id = copy.id;
+        this.matchId = copy.matchId;
+        this.providerId = copy.matchId;
+        this.providerName = copy.providerName;
+    }
+
 
     @NonNull
     public int getId() {
@@ -52,11 +58,11 @@ public class Odds implements Parent<Odds.OddsChange> {
         this.id = id;
     }
 
-    public int getMatchId() {
+    public String getMatchId() {
         return matchId;
     }
 
-    public void setMatchId(int matchId) {
+    public void setMatchId(String matchId) {
         this.matchId = matchId;
     }
 
@@ -77,19 +83,11 @@ public class Odds implements Parent<Odds.OddsChange> {
     }
 
     public OddsChange getLatest() {
-        return latest;
-    }
-
-    public void setLatest(OddsChange latest) {
-        this.latest = latest;
+        return oddsChangeList.get(oddsChangeList.size() - 1);
     }
 
     public OddsChange getStarted() {
-        return started;
-    }
-
-    public void setStarted(OddsChange started) {
-        this.started = started;
+        return oddsChangeList.get(0);
     }
 
     public List<OddsChange> getOddsChangeList() {
@@ -110,22 +108,42 @@ public class Odds implements Parent<Odds.OddsChange> {
         return false;
     }
 
-    public static class OddsChange implements Serializable {
+    public static class OddsChange implements Serializable, Comparable<OddsChange> {
+
+        private String providerId = "2"; // sporttery.cn
 
         @TypeConverters({DateConverter.class})
         private Date time;
 
-        private double win;
+        private String hoursBeforeMatch;
 
-        private double draw;
+        private double oddsOfWin;
+        private double oddsOfDraw;
+        private double oddsOfLose;
 
-        private double lose;
+        private double probabilityOfWin;
+        private double probabilityOfDraw;
+        private double probabilityOfLose;
+
+        private double kellyOfWin;
+        private double kellyOfDraw;
+        private double kellyOfLose;
+
+        private double lossRatio;
 
         @TypeConverters({ResultConverter.class})
         private Result expectedResult = Result.UNKNOWN; // default
 
         @TypeConverters({ResultConverter.class})
         private Result actualResult = Result.UNKNOWN; // default
+
+        public String getProviderId() {
+            return providerId;
+        }
+
+        public void setProviderId(String providerId) {
+            this.providerId = providerId;
+        }
 
         public Date getTime() {
             return time;
@@ -135,28 +153,84 @@ public class Odds implements Parent<Odds.OddsChange> {
             this.time = time;
         }
 
-        public double getWin() {
-            return win;
+        public String getHoursBeforeMatch() {
+            return hoursBeforeMatch;
         }
 
-        public void setWin(double win) {
-            this.win = win;
+        public void setHoursBeforeMatch(String hoursBeforeMatch) {
+            this.hoursBeforeMatch = hoursBeforeMatch;
         }
 
-        public double getDraw() {
-            return draw;
+        public double getOddsOfWin() {
+            return oddsOfWin;
         }
 
-        public void setDraw(double draw) {
-            this.draw = draw;
+        public void setOddsOfWin(double oddsOfWin) {
+            this.oddsOfWin = oddsOfWin;
         }
 
-        public double getLose() {
-            return lose;
+        public double getOddsOfDraw() {
+            return oddsOfDraw;
         }
 
-        public void setLose(double lose) {
-            this.lose = lose;
+        public void setOddsOfDraw(double oddsOfDraw) {
+            this.oddsOfDraw = oddsOfDraw;
+        }
+
+        public double getOddsOfLose() {
+            return oddsOfLose;
+        }
+
+        public void setOddsOfLose(double oddsOfLose) {
+            this.oddsOfLose = oddsOfLose;
+        }
+
+        public double getProbabilityOfWin() {
+            return probabilityOfWin;
+        }
+
+        public void setProbabilityOfWin(double probabilityOfWin) {
+            this.probabilityOfWin = probabilityOfWin;
+        }
+
+        public double getProbabilityOfDraw() {
+            return probabilityOfDraw;
+        }
+
+        public void setProbabilityOfDraw(double probabilityOfDraw) {
+            this.probabilityOfDraw = probabilityOfDraw;
+        }
+
+        public double getProbabilityOfLose() {
+            return probabilityOfLose;
+        }
+
+        public void setProbabilityOfLose(double probabilityOfLose) {
+            this.probabilityOfLose = probabilityOfLose;
+        }
+
+        public double getKellyOfWin() {
+            return kellyOfWin;
+        }
+
+        public void setKellyOfWin(double kellyOfWin) {
+            this.kellyOfWin = kellyOfWin;
+        }
+
+        public double getKellyOfDraw() {
+            return kellyOfDraw;
+        }
+
+        public void setKellyOfDraw(double kellyOfDraw) {
+            this.kellyOfDraw = kellyOfDraw;
+        }
+
+        public double getKellyOfLose() {
+            return kellyOfLose;
+        }
+
+        public void setKellyOfLose(double kellyOfLose) {
+            this.kellyOfLose = kellyOfLose;
         }
 
         public Result getExpectedResult() {
@@ -165,6 +239,14 @@ public class Odds implements Parent<Odds.OddsChange> {
 
         public void setExpectedResult(Result expectedResult) {
             this.expectedResult = expectedResult;
+        }
+
+        public double getLossRatio() {
+            return lossRatio;
+        }
+
+        public void setLossRatio(double lossRatio) {
+            this.lossRatio = lossRatio;
         }
 
         public Result getActualResult() {
@@ -179,10 +261,15 @@ public class Odds implements Parent<Odds.OddsChange> {
         public String toString() {
             return "OddsChange{" +
                     "time=" + time +
-                    ", win=" + win +
-                    ", draw=" + draw +
-                    ", lose=" + lose +
+                    ", oddsOfWin=" + oddsOfWin +
+                    ", oddsOfDraw=" + oddsOfDraw +
+                    ", oddsOfLose=" + oddsOfLose +
                     '}';
+        }
+
+        @Override
+        public int compareTo(OddsChange o) {
+            return o.time.compareTo(this.time);
         }
     }
 }

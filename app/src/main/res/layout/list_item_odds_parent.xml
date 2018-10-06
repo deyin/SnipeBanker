@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/heightOfOddsParent"
+    android:background="@drawable/border_match_parent"
+    android:padding="@dimen/paddingOfOddsParent"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tv_provider_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text="Wiilam Hill"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:weightSum="0.9">
+
+            <TextView
+                android:id="@+id/tv_start_odds_win"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="1.0"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_start_odds_draw"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="2.0"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_start_odds_lose"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="1.0"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:weightSum="0.9">
+
+            <TextView
+                android:id="@+id/tv_lates_odds_win"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="4.0"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_latest_odds_draw"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="5.0"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_latest_odds_lose"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="6.0"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_arrow_odds"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|center_vertical"
+        android:layout_weight="0.1"
+        app:srcCompat="@drawable/ic_arrow_drop_down" />
+
+</LinearLayout>

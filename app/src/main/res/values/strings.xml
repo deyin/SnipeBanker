@@ -7,12 +7,13 @@
     <string name="strVsFinishedScore">"[%1$d] %2$s %3$s %4$s [%5$d]"</string>
     <string name="exponent">澳指</string>
     <string name="concede">让</string>
-    <string name="win">胜</string>
-    <string name="draw">平</string>
-    <string name="lose">负</string>
+    <string name="oddsOfWin">胜</string>
+    <string name="oddsOfDraw">平</string>
+    <string name="oddsOfLose">负</string>
     <string name="analyze"><u><font color="red">分析</font></u></string>
     <string name="title_activity_analyze">AnalyzeActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="lossRatio">赔付率</string>
 </resources>

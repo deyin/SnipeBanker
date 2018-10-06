@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/heightOfOddsChild"
+    android:padding="@dimen/paddingOfOddsParent"
+    android:background="#ffffff"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/tv_hours_before_match_started"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:gravity="center"
+        android:text="赛前N小时"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3"
+        android:weightSum="0.9">
+
+        <TextView
+            android:id="@+id/tv_current_odds_win"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:text="1.0"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_current_odds_draw"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:text="2.0"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_current_odds_lose"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:text="1.0"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.3"
+        android:weightSum="0.9">
+
+        <TextView
+            android:id="@+id/tv_current_kelly_win"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:text="1.0"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_current_kelly_draw"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:text="2.0"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_current_kelly_lose"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:text="1.0"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_loss_ratio"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.15"
+        android:gravity="center"
+        android:text="@string/lossRatio"
+        android:textAlignment="center" />
+
+</LinearLayout>
