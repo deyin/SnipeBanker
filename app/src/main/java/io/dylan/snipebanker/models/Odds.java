@@ -1,6 +1,5 @@
 package io.dylan.snipebanker.models;
 
-import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
@@ -17,7 +16,7 @@ import java.util.List;
 import io.dylan.snipebanker.persist.converters.DateConverter;
 import io.dylan.snipebanker.persist.converters.JsonObjectContainerConverter;
 import io.dylan.snipebanker.persist.converters.JsonObjectConverter;
-import io.dylan.snipebanker.persist.converters.ResultConvert;
+import io.dylan.snipebanker.persist.converters.ResultConverter;
 
 
 @Entity(tableName = "t_odds"
@@ -122,10 +121,10 @@ public class Odds implements Parent<Odds.OddsChange> {
 
         private double lose;
 
-        @TypeConverters({ResultConvert.class})
+        @TypeConverters({ResultConverter.class})
         private Result expectedResult = Result.UNKNOWN; // default
 
-        @TypeConverters({ResultConvert.class})
+        @TypeConverters({ResultConverter.class})
         private Result actualResult = Result.UNKNOWN; // default
 
         public Date getTime() {

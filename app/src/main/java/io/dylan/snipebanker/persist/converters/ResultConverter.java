@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import io.dylan.snipebanker.models.Result;
 
-public class ResultConvert {
+public class ResultConverter {
 
     @TypeConverter
     public static Result fromCode(String code) {

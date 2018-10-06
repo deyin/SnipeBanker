@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +29,8 @@ import io.dylan.snipebanker.tasks.DownloadMatchTask;
 import io.dylan.snipebanker.utils.DateUtils;
 
 public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
+
+    private final static String TAG = MainActivity.class.getName();
 
     /// UI
     SwipeRefreshLayout swipeRefreshLayout;
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
     protected void onStart() {
         super.onStart();
 
-        refreshMatchList(false);
+        loadMatchListFromDb();
 
     }
 
@@ -72,26 +75,32 @@ public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshMatchList(true);
+                downloadMatchList();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
 
+    private void downloadMatchList() {
+        Date todayMatchDate = getTodayMatchDate();
+        if(new Date().before(todayMatchDate)) {
+            ///if before everyday update time at 11:30, fetch yesterday
+            todayMatchDate = DateUtils.getDaysBefore(todayMatchDate, 1);
+        }
+        Log.d(TAG, "downloadMatchList by date: " + todayMatchDate);
+        new DownloadMatchTask(MainActivity.this).execute(todayMatchDate);
+    }
 
-    private void refreshMatchList(final boolean force) {
+    private void loadMatchListFromDb() {
+        final Date todayMatchDate = getTodayMatchDate();
+        Date start = DateUtils.getDaysBefore(todayMatchDate, 2);
+        Date end = DateUtils.getDaysAfter(todayMatchDate, 3);
 
-        final Date today = getTodayMatchDate();
+        Log.d(TAG, "loadMatchListFromDb: start with " + start + ", end with " + end);
 
-        Date daysBefore = DateUtils.getDaysBefore(today, 2);
-        Date daysAfter = DateUtils.getDaysAfter(today, 3);
-
-        appViewModel.getMatchesByDate(daysBefore, daysAfter).observe(this, new Observer<List<Match>>() {
+        appViewModel.getMatchesByDate(start, end).observe(this, new Observer<List<Match>>() {
             @Override
             public void onChanged(@Nullable List<Match> matches) {
-                if(force || matches.isEmpty()) {
-                    new DownloadMatchTask(MainActivity.this).execute(today);
-                }
                 List<MatchParent> matchParentList = generateMatchParents(matches);
                 matchAdapter.parentListChanged(matchParentList);
             }
@@ -102,8 +111,8 @@ public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
     private static List<MatchParent> generateMatchParents(@NonNull List<Match> matches) {
         Map<Date, List<Match>> dateListMap = groupMatchListByDate(matches);
         Set<Map.Entry<Date, List<Match>>> entries = dateListMap.entrySet();
-        List<MatchParent> matchParentList  = new ArrayList<>();
-        for(Map.Entry<Date, List<Match>> entry : entries) {
+        List<MatchParent> matchParentList = new ArrayList<>();
+        for (Map.Entry<Date, List<Match>> entry : entries) {
             Date date = entry.getKey();
             List<Match> matchList = entry.getValue();
             MatchParent matchParent = new MatchParent(date, matchList);
@@ -117,17 +126,17 @@ public class MainActivity extends AppCompatActivity implements AnalyzeCallBack {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 11);
         calendar.set(Calendar.MINUTE, 30);
-        calendar.set(Calendar.SECOND, 00);
+        calendar.set(Calendar.SECOND, 0);
 
         return calendar.getTime();
     }
 
-    private static Map<Date,List<Match>> groupMatchListByDate(@NonNull List<Match> matchList) {
-        Map<Date,List<Match>> map = new TreeMap<>(); // ordered
-        for(Match match  : matchList) {
+    private static Map<Date, List<Match>> groupMatchListByDate(@NonNull List<Match> matchList) {
+        Map<Date, List<Match>> map = new TreeMap<>(); // ordered
+        for (Match match : matchList) {
             Date matchDate = match.getMatchDate();
             List<Match> matches = map.get(matchDate);
-            if(matches == null) {
+            if (matches == null) {
                 matches = new ArrayList<>();
             }
             matches.add(match);

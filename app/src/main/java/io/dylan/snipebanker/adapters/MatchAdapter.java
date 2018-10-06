@@ -16,9 +16,9 @@ import com.bignerdranch.expandablerecyclerview.ParentViewHolder;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.dylan.snipebanker.R;
 import io.dylan.snipebanker.callbacks.AnalyzeCallBack;
@@ -26,6 +26,7 @@ import io.dylan.snipebanker.models.Match;
 import io.dylan.snipebanker.models.MatchParent;
 import io.dylan.snipebanker.models.Odds;
 import io.dylan.snipebanker.models.Result;
+import io.dylan.snipebanker.models.Status;
 import io.dylan.snipebanker.persist.converters.DateConverter;
 
 public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
@@ -63,12 +64,15 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
     }
 
     public void parentListChanged(@NonNull List<MatchParent> matchParentList) {
+        if(matchParentList.isEmpty()) {
+           return;
+        }
         setParentList(matchParentList, true);
-        notifyDataSetChanged();
-        expandToLatestMatch(matchParentList);
+        notifyParentDataSetChanged(true);
+        expandToLatestMatchParent(matchParentList);
     }
 
-    private void expandToLatestMatch(@NonNull List<MatchParent> matchParentList) {
+    private void expandToLatestMatchParent(@NonNull List<MatchParent> matchParentList) {
         Date now = DateConverter.dateFromYmdString(DateConverter.dateToYmdString(new Date()));
         int pos = 0;
         for (MatchParent matchParent : matchParentList) {
@@ -76,6 +80,9 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
                 break;
             }
             pos++;
+        }
+        if(pos >= matchParentList.size()) {
+            pos--;
         }
         expandParent(pos);
     }
@@ -119,7 +126,6 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
         TextView league;
         TextView time;
         TextView analyze;
-
 
         TextView vs;
 
@@ -176,7 +182,7 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
 
         public void onBind(int parentPosition, int childPosition, final Match match) {
             matchNo.setText(match.getMatchNo());
-            league.setText(match.getMatchName());
+            league.setText(match.getLeague().getName());
             time.setText(DateConverter.dateToHmString(match.getMatchTime()));
             analyze.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -190,7 +196,7 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
             Match.Team home = match.getHome();
             Match.Team away = match.getAway();
 
-            if (match.isFinished() && match.getFinishedScore() != null) {
+            if (match.getStatus() == Status.FINISHED & match.getFinishedScore() != null) {
                 vs.setText(showHtml(context.getResources().getString(R.string.strVsFinishedScore,
                         home.getRanking(),
                         home.getName(),
@@ -231,7 +237,7 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
                 this.oddsLose.setText(String.valueOf(oddsOfSporttery.getLose()));
             }
 
-            enableOddsViews(!match.isFinished());
+            enableOddsViews(!match.hasFinished());
             setActualResultOfOddsView(oddsOfSporttery);
 
             Odds.OddsChange handicapOddsOfSporttery = match.getHandicapOddsOfSporttery();
@@ -240,7 +246,7 @@ public class MatchAdapter extends ExpandableRecyclerAdapter<MatchParent, Match,
                 this.handicapsDraw.setText(String.valueOf(handicapOddsOfSporttery.getDraw()));
                 this.handicapsLose.setText(String.valueOf(handicapOddsOfSporttery.getLose()));
             }
-            enableHandicapOddsViews(!match.isFinished());
+            enableHandicapOddsViews(!match.hasFinished());
             setActualResultOfHandicapOddsView(handicapOddsOfSporttery);
         }
 

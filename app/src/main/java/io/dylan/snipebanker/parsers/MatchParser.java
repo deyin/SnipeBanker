@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import io.dylan.snipebanker.models.Match;
 import io.dylan.snipebanker.models.Odds;
 import io.dylan.snipebanker.models.Result;
+import io.dylan.snipebanker.models.Status;
 import io.dylan.snipebanker.persist.converters.DateConverter;
 
 public class MatchParser {
@@ -26,7 +27,8 @@ public class MatchParser {
     private static final String TAG = MatchParser.class.getName();
 
     private static final Pattern DATE_PATTERN = Pattern.compile("星期[一|二|三|四|五|六|日]\\s*(.*)");
-    private static final Pattern URL_PATTERN = Pattern.compile("http://www.okooo.com/soccer/match/(.*)/trends/");
+    private static final Pattern MATCH_URL_PATTERN = Pattern.compile("http://www.okooo.com/soccer/match/(.*)/trends/");
+    private static final Pattern LEAGUE_URL_PATTERN = Pattern.compile("http://www.okooo.com/soccer/league/(.*)/");
 
     public static List<Match> parse(String response) {
 
@@ -91,9 +93,19 @@ public class MatchParser {
             String matchNo = td.selectFirst("span.xh").text();
             match.setMatchNo(matchNo);
 
-            // matchName
-            String leagueName = td.selectFirst("a.ls").text();
-            match.setMatchName(leagueName);
+            // league
+            Match.League league = new Match.League();
+            Element aElement = td.selectFirst("a.ls");
+            String href = aElement.attr("href");
+            if(href != null) {
+                Matcher matcher = LEAGUE_URL_PATTERN.matcher(href);
+                if(matcher.find()) {
+                    league.setId(parseToInt(matcher.group(1)));
+                    String name = aElement.text();
+                    league.setName(name);
+                }
+            }
+            match.setLeague(league);
         }
 
         {
@@ -131,7 +143,7 @@ public class MatchParser {
             String homeName = homeElement.text();
 
             String teamUrl = homeElement.attr("href"); // http://www.okooo.com/soccer/match/1044895/trends/
-            Matcher matcher = URL_PATTERN.matcher(teamUrl);
+            Matcher matcher = MATCH_URL_PATTERN.matcher(teamUrl);
             if (matcher.find()) {
                 match.setId(matcher.group(1));
             }
@@ -144,7 +156,7 @@ public class MatchParser {
             if (vsOrScoreElement != null) {
                 String vsOrScore = vsOrScoreElement.text();
                 if (vsOrScore != null && !vsOrScore.equals("VS")) {
-                    match.setFinished(true);
+//                    match.setMatchStatus(Status.FINISHED);
                     match.setFinishedScore(vsOrScore);
                 }
             }

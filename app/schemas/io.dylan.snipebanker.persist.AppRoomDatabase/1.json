@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "38520c1cc311478affd1efb40eeda729",
+    "identityHash": "c007861451637b3a817d8cf7763d4100",
     "entities": [
       {
         "tableName": "t_match",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `matchNo` TEXT NOT NULL, `matchName` TEXT NOT NULL, `matchDate` TEXT NOT NULL, `matchTime` TEXT NOT NULL, `finished` INTEGER NOT NULL, `finishedScore` TEXT, `handicaps` INTEGER NOT NULL, `homename` TEXT NOT NULL, `homeleague` TEXT, `homeranking` INTEGER NOT NULL, `awayname` TEXT NOT NULL, `awayleague` TEXT, `awayranking` INTEGER NOT NULL, `oddstime` TEXT, `oddswin` REAL, `oddsdraw` REAL, `oddslose` REAL, `oddsexpectedResult` TEXT, `oddsactualResult` TEXT, `handicap_oddstime` TEXT, `handicap_oddswin` REAL, `handicap_oddsdraw` REAL, `handicap_oddslose` REAL, `handicap_oddsexpectedResult` TEXT, `handicap_oddsactualResult` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `matchNo` TEXT NOT NULL, `matchDate` TEXT NOT NULL, `matchTime` TEXT NOT NULL, `status` INTEGER, `finishedScore` TEXT, `handicaps` INTEGER NOT NULL, `leagueid` INTEGER NOT NULL, `leaguename` TEXT NOT NULL, `homename` TEXT NOT NULL, `homeleague` TEXT, `homeranking` INTEGER NOT NULL, `awayname` TEXT, `awayleague` TEXT, `awayranking` INTEGER, `oddstime` TEXT, `oddswin` REAL, `oddsdraw` REAL, `oddslose` REAL, `oddsexpectedResult` TEXT, `oddsactualResult` TEXT, `handicap_oddstime` TEXT, `handicap_oddswin` REAL, `handicap_oddsdraw` REAL, `handicap_oddslose` REAL, `handicap_oddsexpectedResult` TEXT, `handicap_oddsactualResult` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -17,12 +17,6 @@
           {
             "fieldPath": "matchNo",
             "columnName": "matchNo",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "matchName",
-            "columnName": "matchName",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -39,10 +33,10 @@
             "notNull": true
           },
           {
-            "fieldPath": "finished",
-            "columnName": "finished",
+            "fieldPath": "status",
+            "columnName": "status",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "finishedScore",
@@ -54,6 +48,18 @@
             "fieldPath": "handicaps",
             "columnName": "handicaps",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "league.id",
+            "columnName": "leagueid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "league.name",
+            "columnName": "leaguename",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -78,7 +84,7 @@
             "fieldPath": "away.name",
             "columnName": "awayname",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "away.league",
@@ -90,7 +96,7 @@
             "fieldPath": "away.ranking",
             "columnName": "awayranking",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "oddsOfSporttery.time",
@@ -356,7 +362,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"38520c1cc311478affd1efb40eeda729\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c007861451637b3a817d8cf7763d4100\")"
     ]
   }
 }

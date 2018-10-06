@@ -13,14 +13,24 @@ import io.dylan.snipebanker.models.Odds;
 
 public class JsonObjectConverter {
 
-    static ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    @TypeConverter
+    public Match.League converLeagueFromJson(String json) {
+        try {
+            return MAPPER.readValue(json, Match.League.class);
+        } catch (IOException e) {
+            Log.e(JsonObjectConverter.class.getName(), "converLeagueFromJson: ", e);
+        }
+        return null;
+    }
 
     @TypeConverter
     public Match.Team converTeamFromJson(String json) {
         try {
             return MAPPER.readValue(json, Match.Team.class);
         } catch (IOException e) {
-            Log.e(JsonObjectConverter.class.getName(), "converFromJson: ", e);
+            Log.e(JsonObjectConverter.class.getName(), "converTeamFromJson: ", e);
         }
         return null;
     }
@@ -30,7 +40,7 @@ public class JsonObjectConverter {
         try {
             return MAPPER.readValue(json, Odds.OddsChange.class);
         } catch (IOException e) {
-            Log.e(JsonObjectConverter.class.getName(), "converFromJson: ", e);
+            Log.e(JsonObjectConverter.class.getName(), "converOddsChangeFromJson: ", e);
         }
         return null;
     }
@@ -40,7 +50,7 @@ public class JsonObjectConverter {
         try {
             return MAPPER.readValue(json, Handicap.HandicapChange.class);
         } catch (IOException e) {
-            Log.e(JsonObjectConverter.class.getName(), "converFromJson: ", e);
+            Log.e(JsonObjectConverter.class.getName(), "converHandicapChangeFromJson: ", e);
         }
         return null;
     }

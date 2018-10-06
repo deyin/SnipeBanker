@@ -12,40 +12,43 @@ import java.util.Date;
 
 import io.dylan.snipebanker.persist.converters.DateConverter;
 import io.dylan.snipebanker.persist.converters.JsonObjectConverter;
-import io.dylan.snipebanker.persist.converters.ResultConvert;
+import io.dylan.snipebanker.persist.converters.StatusConverter;
 
 @Entity(tableName = "t_match", indices = {@Index(value = "matchNo")})
 public class Match implements Serializable {
 
     @NonNull
     @PrimaryKey
-    private String id;
+    private String id = "N/A";
 
     @NonNull
-    private String matchNo;
+    private String matchNo = "000";
 
     @NonNull
-    private String matchName;
+    @TypeConverters({JsonObjectConverter.class})
+    @Embedded(prefix = "league")
+    private League league = new League();
 
     @NonNull
     @TypeConverters({DateConverter.class})
-    private Date matchDate;
+    private Date matchDate = new Date();
 
     @NonNull
     @TypeConverters({DateConverter.class})
-    private Date matchTime;
+    private Date matchTime = new Date();
 
     @NonNull
     @Embedded(prefix = "home")
     @TypeConverters({JsonObjectConverter.class})
-    private Team home;
+    private Team home = new Team();
 
-    @NonNull
     @Embedded(prefix = "away")
     @TypeConverters({JsonObjectConverter.class})
-    private Team away;
+    private Team away = new Team();
 
-    private boolean finished;
+    @TypeConverters({StatusConverter.class})
+    private Status status = Status.NOT_STARTED;
+
     private String finishedScore;
 
     private int handicaps = 0;
@@ -77,12 +80,12 @@ public class Match implements Serializable {
     }
 
     @NonNull
-    public String getMatchName() {
-        return matchName;
+    public League getLeague() {
+        return league;
     }
 
-    public void setMatchName(@NonNull String matchName) {
-        this.matchName = matchName;
+    public void setLeague(@NonNull League league) {
+        this.league = league;
     }
 
     @NonNull
@@ -121,14 +124,6 @@ public class Match implements Serializable {
         this.away = away;
     }
 
-    public boolean isFinished() {
-        return finished;
-    }
-
-    public void setFinished(boolean finished) {
-        this.finished = finished;
-    }
-
     public String getFinishedScore() {
         return finishedScore;
     }
@@ -161,9 +156,45 @@ public class Match implements Serializable {
         this.handicapOddsOfSporttery = handicapOddsOfSporttery;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public boolean hasFinished() {
+        return Status.FINISHED.equals(status);
+    }
+
+    public static class League implements Serializable {
+        private int id = 0;
+
+        @NonNull
+        private String name = "N/A";
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        @NonNull
+        public String getName() {
+            return name;
+        }
+
+        public void setName(@NonNull String name) {
+            this.name = name;
+        }
+    } // end class League
+
     public static class Team implements Serializable {
         @NonNull
-        private String name;
+        private String name = "N/A";
         private String league;
         private int ranking;
 
@@ -192,6 +223,7 @@ public class Match implements Serializable {
             this.ranking = ranking;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return "Team{" +
@@ -201,4 +233,5 @@ public class Match implements Serializable {
                     '}';
         }
     } // end class Team
+
 } // end class Match
